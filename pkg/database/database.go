@@ -16,7 +16,7 @@ func Connect(dbConfig gorm.Dialector, _logger gormlogger.Interface) {
 
 	// 使用 gorm.Open 连接数据库
 	var err error
-	DB, err := gorm.Open(dbConfig, &gorm.Config{
+	DB, err = gorm.Open(dbConfig, &gorm.Config{
 		Logger: _logger,
 	})
 
