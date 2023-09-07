@@ -25,14 +25,14 @@ func main() {
 	// new 一个 Gin Engine 实例
 	r := gin.New()
 
-	// 初始化 DB
-	bootstrap.SetupDB()
-
 	// 初始化路由绑定
 	bootstrap.SetupRoute(r)
 
 	// 初始化 Logger
 	bootstrap.SetupLogger()
+
+	// 初始化 DB
+	bootstrap.SetupDB()
 
 	// 设置 gin 的运行模式，支持 debug，release，test
 	// release 会屏蔽调试信息，官方建议生产环境中使用
