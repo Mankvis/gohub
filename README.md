@@ -9,4 +9,5 @@ gohub
 * Cast 内置类型之间的转换 [https://github.com/spf13/cast](https://github.com/spf13/cast)
 * GORM 数据模型驱动 [https://github.com/go-gorm/gorm](https://github.com/go-gorm/gorm)
 * Govalidator 验证器 [https://github.com/thedevsaddam/govalidator](https://github.com/thedevsaddam/govalidator)
-* 
+* zap  Uber 开源的日志工具 [https://github.com/uber-go/zap](https://github.com/uber-go/zap)
+* lumberjack 滚动日志的实现方案 [https://github.com/natefinch/lumberjack](https://github.com/natefinch/lumberjack)
