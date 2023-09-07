@@ -138,7 +138,7 @@ func LogWarnIf(err error) {
 // LogInfoIf 当 err != nil 时记录 info 等级的日志
 func LogInfoIf(err error) {
 	if err != nil {
-		Logger.Info("Error Occurred:", zap.Error(er))
+		Logger.Info("Error Occurred:", zap.Error(err))
 	}
 }
 
