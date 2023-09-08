@@ -14,4 +14,5 @@ gohub
 * go-redis Redis 数据库支持 [https://github.com/go-redis/redis](https://github.com/go-redis/redis)
 * base64Captcha 验证码支持库 [https://github.com/mojocn/base64Captcha](https://github.com/mojocn/base64Captcha)
 * AliyunSms 阿里云短信支持库 [https://github.com/KenmyZhang/aliyun-communicate]（https://github.com/KenmyZhang/aliyun-communicate
-* 
+* Mailhog 邮件测试支持库 [https://github.com/mailhog/MailHog](https://github.com/mailhog/MailHog)
+* SMTP Driver 发送邮件 [https://github.com/jordan-wright/email](https://github.com/jordan-wright/email)
