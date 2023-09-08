@@ -13,3 +13,5 @@ gohub
 * lumberjack 滚动日志的实现方案 [https://github.com/natefinch/lumberjack](https://github.com/natefinch/lumberjack)
 * go-redis Redis 数据库支持 [https://github.com/go-redis/redis](https://github.com/go-redis/redis)
 * base64Captcha 验证码支持库 [https://github.com/mojocn/base64Captcha](https://github.com/mojocn/base64Captcha)
+* AliyunSms 阿里云短信支持库 [https://github.com/KenmyZhang/aliyun-communicate]（https://github.com/KenmyZhang/aliyun-communicate
+* 
