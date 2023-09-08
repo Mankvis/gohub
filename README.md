@@ -12,4 +12,4 @@ gohub
 * zap  Uber 开源的日志工具 [https://github.com/uber-go/zap](https://github.com/uber-go/zap)
 * lumberjack 滚动日志的实现方案 [https://github.com/natefinch/lumberjack](https://github.com/natefinch/lumberjack)
 * go-redis Redis 数据库支持 [https://github.com/go-redis/redis](https://github.com/go-redis/redis)
-* 
+* base64Captcha 验证码支持库 [https://github.com/mojocn/base64Captcha](https://github.com/mojocn/base64Captcha)
