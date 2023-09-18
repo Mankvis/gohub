@@ -31,3 +31,9 @@ func Get(idstr string) (userModel User) {
 	database.DB.Where("id", idstr).First(&userModel)
 	return
 }
+
+// GetByPhone 通过手机号获取用户
+func GetByPhone(phone string) (userModel User) {
+	database.DB.Where("phone", phone).First(&userModel)
+	return
+}
