@@ -24,7 +24,7 @@ func init() {
 			"url": config.Env("APP_URL", "http://localhsot:3000"),
 
 			// 设置时区， JWT 里面会用，日志记录里面也会用到
-			"timezone": config.Env("TIMEZONE", "Asia/Shangai"),
+			"timezone": config.Env("TIMEZONE", "Asia/Shanghai"),
 		}
 	})
 }
