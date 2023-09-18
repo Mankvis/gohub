@@ -4,9 +4,12 @@ import (
 	"flag"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"gohub/app/http/middlewares"
 	"gohub/bootstrap"
 	btsConfig "gohub/config"
+	"gohub/pkg/auth"
 	"gohub/pkg/config"
+	"gohub/pkg/response"
 )
 
 func init() {
@@ -36,6 +39,11 @@ func main() {
 
 	// 初始化 Redis
 	bootstrap.SetupRedis()
+
+	r.GET("/test_auth", middlewares.AuthJWT(), func(c *gin.Context) {
+		userModel := auth.CurrentUser(c)
+		response.Data(c, userModel)
+	})
 
 	// 设置 gin 的运行模式，支持 debug，release，test
 	// release 会屏蔽调试信息，官方建议生产环境中使用
