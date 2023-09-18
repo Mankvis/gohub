@@ -113,6 +113,41 @@ func (jwt *JWT) IssueToken(userID string, userName string) string {
 	return token
 }
 
+// RefreshToken 更新 Token，用以提供 refresh token 接口
+func (jwt *JWT) RefreshToken(c *gin.Context) (string, error) {
+
+	// 1. 从 header 里获取 token
+	tokenString, parseErr := jwt.getTokenFromHeader(c)
+	if parseErr != nil {
+		return "", parseErr
+	}
+
+	// 2. 调用 jwt 库解析用户传参的 Token
+	token, err := jwt.parseTokenString(tokenString)
+
+	// 3. 解析出错，未报错证明是合法的 Token （甚至未到过期时间）
+	if err != nil {
+		validationErr, ok := err.(*jwtpkg.ValidationError)
+		// 满足 refresh 的条件，只是单一的报错 ValidationErrorExpired
+		if !ok || validationErr.Errors != jwtpkg.ValidationErrorExpired {
+			return "", err
+		}
+	}
+
+	// 4. 解析 JWTCustomClaims 数据
+	claims := token.Claims.(*JWTCustomClaims)
+
+	// 5. 检查是否过了 「最大允许刷新时间」
+	x := app.TimenowInTimezone().Add(-jwt.MaxRefresh).Unix()
+	if claims.IssuedAt > x {
+		// 修改过期时间
+		claims.StandardClaims.ExpiresAt = jwt.expireAtTime()
+		return jwt.createToken(*claims)
+	}
+
+	return "", ErrTokenExpiredMaxRefresh
+}
+
 // createToken 创建 Token，内部使用，外部请调用 IssueToken
 func (jwt *JWT) createToken(claims JWTCustomClaims) (string, error) {
 	// 使用 HS256 算法进行 token 生成
