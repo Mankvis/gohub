@@ -1,12 +1,14 @@
 package main
 
 import (
-	"flag"
 	"fmt"
-	"github.com/gin-gonic/gin"
+	"github.com/spf13/cobra"
+	"gohub/app/cmd"
 	"gohub/bootstrap"
 	btsConfig "gohub/config"
 	"gohub/pkg/config"
+	"gohub/pkg/console"
+	"os"
 )
 
 func init() {
@@ -16,37 +18,44 @@ func init() {
 
 func main() {
 
-	// 配置初始化，依赖命令行 --env 参数
-	var env string
-	flag.StringVar(&env, "env", "", "加载 .env 文件，如 --env=testing 加载的是 .env.testing 文件")
-	flag.Parse()
-	config.InitConfig(env)
+	// 应用的主入口，默认调用 cmd.CmdServe 命令
+	var rootCmd = &cobra.Command{
+		Use:   "Gohub",
+		Short: "A simple forum project",
+		Long:  `Default will run "serve" command, you can use "-h" flag to see all subcommand`,
 
-	// new 一个 Gin Engine 实例
-	r := gin.New()
+		// rootCmd 的所有子命令都会执行以下代码
+		PersistentPreRun: func(command *cobra.Command, args []string) {
 
-	// 初始化路由绑定
-	bootstrap.SetupRoute(r)
+			// 配置初始化，依赖命令行 --env 参数
+			config.InitConfig(cmd.Env)
 
-	// 初始化 Logger
-	bootstrap.SetupLogger()
+			// 初始化 Logger
+			bootstrap.SetupLogger()
 
-	// 初始化 DB
-	bootstrap.SetupDB()
+			// 初始化数据库
+			bootstrap.SetupDB()
 
-	// 初始化 Redis
-	bootstrap.SetupRedis()
+			// 初始化 Redis
+			bootstrap.SetupRedis()
 
-	// 设置 gin 的运行模式，支持 debug，release，test
-	// release 会屏蔽调试信息，官方建议生产环境中使用
-	// 非 release 模式 gin 终端打印太多信息，干扰我们程序中的 log
-	// 故此设置为 release，有特殊情况手动改为 debug 即可
-	gin.SetMode(gin.ReleaseMode)
+			// 初始化缓存
+		},
+	}
 
-	// 运行服务，默认端口为 8080，我们改为 8000
-	err := r.Run(":" + config.Get("app.port"))
-	if err != nil {
-		// 处理错误，端口被占用或者其他错误
-		fmt.Println(err.Error())
+	// 注册子命令
+	rootCmd.AddCommand(
+		cmd.CmdServe,
+	)
+
+	// 配置默认运行 web 服务
+	cmd.RegisterDefaultCmd(rootCmd, cmd.CmdServe)
+
+	// 注册全局参数，--env
+	cmd.RegisterGlobalFlags(rootCmd)
+
+	// 执行主命令
+	if err := rootCmd.Execute(); err != nil {
+		console.Exit(fmt.Sprintf("Failed to run app with %v: %s", os.Args, err.Error()))
 	}
 }
