@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/spf13/cobra"
 	"gohub/app/cmd"
-	make "gohub/app/cmd/make"
+	makeCmd "gohub/app/cmd/make"
 	"gohub/bootstrap"
 	btsConfig "gohub/config"
 	"gohub/pkg/config"
@@ -49,7 +49,7 @@ func main() {
 		cmd.CmdServe,
 		cmd.CmdKey,
 		cmd.CmdPlay,
-		make.CmdMake,
+		makeCmd.CmdMake,
 		cmd.CmdMigrate,
 	)
 

@@ -27,7 +27,7 @@ func NewMigrator() *Migrator {
 
 	// 初始化必要属性
 	migrator := &Migrator{
-		Folder:   "database/migrations/",
+		Folder:   "pkg/database/migrations/",
 		DB:       database.DB,
 		Migrator: database.DB.Migrator(),
 	}

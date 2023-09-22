@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"github.com/spf13/cobra"
+	"gohub/pkg/database/migrations"
 	"gohub/pkg/migrate"
 )
 
@@ -12,7 +13,7 @@ var CmdMigrate = &cobra.Command{
 }
 
 var CmdMigrateUp = &cobra.Command{
-	Use:   "Up",
+	Use:   "up",
 	Short: "Run unmigrated migrations",
 	Run:   runUp,
 }
