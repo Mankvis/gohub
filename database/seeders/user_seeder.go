@@ -2,7 +2,7 @@ package seeders
 
 import (
 	"fmt"
-	"gohub/database/fatcories"
+	"gohub/database/factories"
 	"gohub/pkg/console"
 	"gohub/pkg/logger"
 	"gohub/pkg/seed"
@@ -15,7 +15,7 @@ func init() {
 	seed.Add("SeedUsersTable", func(db *gorm.DB) {
 
 		// 创建 10 个用户对象
-		users := fatcories.MakeUsers(10)
+		users := factories.MakeUsers(10)
 
 		// 批量创建用户（注意批量创建不会调用模型钩子）
 		result := db.Table("users").Create(&users)

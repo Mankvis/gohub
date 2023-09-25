@@ -1,4 +1,4 @@
-package fatcories
+package factories
 
 import (
 	"github.com/bxcodec/faker/v3"
