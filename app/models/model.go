@@ -3,7 +3,6 @@ package models
 
 import (
 	"github.com/spf13/cast"
-	"time"
 )
 
 // BaseModel 模型基类
@@ -13,8 +12,8 @@ type BaseModel struct {
 
 // CommonTimestampsField 时间戳
 type CommonTimestampsField struct {
-	CreatedAt time.Time `gorm:"column:created_at;index;" json:"created_at,omitempty"`
-	UpdatedAt time.Time `gorm:"column:updated_at;index;" json:"updated_at,omitempty"`
+	CreatedAt *JSONTime `gorm:"column:created_at;index;" json:"created_at,omitempty"`
+	UpdatedAt *JSONTime `gorm:"column:updated_at;index;" json:"updated_at,omitempty"`
 }
 
 // GetStringID 获取 ID 的字符串格式
